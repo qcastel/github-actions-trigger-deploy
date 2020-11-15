@@ -9,6 +9,7 @@ git config --global user.name "${GIT_RELEASE_BOT_NAME}"
 
 add-ssh-key.sh
 
+echo "Clone repository '${REPO}' and commit '${NEW_TAG}' docker images to branch '${BRANCH_NAME}'"
 git clone "${REPO}" deployment-repo
 
 cd deployment-repo
