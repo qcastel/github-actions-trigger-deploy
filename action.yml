@@ -24,6 +24,10 @@ inputs:
     required: false
     default: 'release-bot@github.com'
 
+  repository:
+    description: 'git repository where to run the upgrade'
+    required: true
+
 
 
 runs:
@@ -39,3 +43,5 @@ runs:
     GIT_RELEASE_BOT_EMAIL: ${{ inputs.git-release-bot-email }}
 
     BRANCH_NAME: ${{ inputs.branch-name }}
+
+    REPO: ${{ inputs.repository }}
