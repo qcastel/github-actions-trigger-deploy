@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Deploy!"
 NEW_TAG=`xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' pom.xml`
 echo "NEW TAG=$NEW_TAB"

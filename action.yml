@@ -1,7 +1,7 @@
 # action.yml
-name: 'Maven release'
+name: 'Update-docker-image'
 author: https://github.com/qcastel
-description: 'Deploy to another repo by committing over there'
+description: 'Update docker images in external repository'
 branding:
   color: blue
   icon: unlock
