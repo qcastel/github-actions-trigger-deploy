@@ -21,7 +21,7 @@ IFS=';' read -ra "$imagesNames" <<< "$IMAGES_NAMES"
 
 for row in $(cat "${dockerImagesToUpdate}" | jq -r '.[] | @base64'); do
   _jq() {
-   echo "${row}" | base64 --decode | jq -r "${dockerImagesToUpdate}"
+   echo "${row}" | base64 -d | jq -r "${dockerImagesToUpdate}"
   }
   name=$(_jq '.name')
   image=$(_jq '.image')
