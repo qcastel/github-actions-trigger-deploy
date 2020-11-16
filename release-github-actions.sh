@@ -1,6 +1,8 @@
 #!/bin/bash
 
-export VERSION=${GITHUB_REF/refs\/tags\//}
+if [ -z "${VERSION}" ]; then
+  export VERSION=${GITHUB_REF/refs\/tags\//}
+fi
 echo "Deploy tag ${VERSION} for images ${IMAGES_NAMES}!"
 
 git config --global user.email "${GIT_RELEASE_BOT_EMAIL}"
