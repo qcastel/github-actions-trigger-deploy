@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 dockerImagesToUpdate=${1}
+echo "Read docker images to update from file $dockerImagesToUpdate"
 if [ -z "${dockerImagesToUpdate}" ]; then
    echo "No docker images to update specified"
    echo "Usage: updateDockerImages.sh ci/dockerImagesToUpdate.json"
@@ -12,16 +13,17 @@ if [ -z "${VERSION}" ]; then
    exit 1;
 fi
 if [ -z "${IMAGES_NAMES}" ]; then
-   echo "No variable 'VERSION' defined."
+   echo "No variable 'IMAGES_NAMES' defined."
    exit 1;
 fi
 
 echo "Update manifests to use docker images '${VERSION}' for images '${IMAGES_NAMES}'."
-IFS=';' read -ra "$imagesNames" <<< "$IMAGES_NAMES"
+IFS=';' read -ra imagesNames <<< "$IMAGES_NAMES"
 
-for row in $(cat "${dockerImagesToUpdate}" | jq -r '.[] | @base64'); do
+for row in $(cat ${dockerImagesToUpdate} | jq -r '.[] | @base64'); do
+  echo "row ${row}"
   _jq() {
-   echo "${row}" | base64 -d | jq -r "${dockerImagesToUpdate}"
+   echo "${row}" | base64 -d | jq -r "${1}"
   }
   name=$(_jq '.name')
   image=$(_jq '.image')
