@@ -28,6 +28,10 @@ inputs:
     description: 'git repository where to run the upgrade'
     required: true
 
+  images-names:
+    description: 'List of docker images to deploy, separated by a ;'
+    required: true
+
 
 
 runs:
@@ -45,3 +49,5 @@ runs:
     BRANCH_NAME: ${{ inputs.branch-name }}
 
     REPO: ${{ inputs.repository }}
+
+    IMAGES_NAMES: ${{ inputs.images-names }}

@@ -1,21 +1,26 @@
 #!/bin/bash
 
-echo "Deploy!"
-NEW_TAG=`xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' pom.xml`
-echo "NEW TAG=$NEW_TAB"
+echo "Deploy tag ${VERSION} for images ${IMAGE_NAMES}!"
 
 git config --global user.email "${GIT_RELEASE_BOT_EMAIL}"
 git config --global user.name "${GIT_RELEASE_BOT_NAME}"
 
 add-ssh-key.sh
 
-echo "Clone repository '${REPO}' and commit '${NEW_TAG}' docker images to branch '${BRANCH_NAME}'"
+echo "Clone repository '${REPO}' and commit on branch '${BRANCH_NAME}' a manifest change to use '${VERSION}' docker images."
 git clone "${REPO}" deployment-repo
 
+echo "Repo cloned. Go to deployment-repo"
 cd deployment-repo
-git checkout -B "${BRANCH_NAME}"
 
-./ci/updateDockerImages.sh ci/dockerImagesToUpdate.json
-git commit -am "Upgrade docker images to tag ${NEW_TAG}"
+git checkout -B "${BRANCH_NAME}" "origin/${BRANCH_NAME}"
+
+if ! updateDockerImages.sh ci/dockerImagesToUpdate.json;
+then
+  echo "Updating manifests to use new docker images failed."
+  exit 1;
+fi
+
+git commit -am "Upgrade docker images to tag ${VERSION}"
 
 git push origin "${BRANCH_NAME}"
