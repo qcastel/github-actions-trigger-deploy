@@ -32,6 +32,9 @@ inputs:
     description: 'List of docker images to deploy, separated by a ;'
     required: true
 
+  version:
+    description: 'Customise the version'
+    required: true
 
 
 runs:
@@ -51,3 +54,5 @@ runs:
     REPO: ${{ inputs.repository }}
 
     IMAGES_NAMES: ${{ inputs.images-names }}
+
+    VERSION: ${{ inputs.version }}
