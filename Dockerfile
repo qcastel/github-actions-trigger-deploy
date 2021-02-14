@@ -1,4 +1,4 @@
-FROM qcastel/maven-release:0.0.12
+FROM qcastel/maven-release:0.0.15
 
 RUN apk add --no-cache curl
 

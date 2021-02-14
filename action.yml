@@ -36,6 +36,24 @@ inputs:
     description: 'Customise the version'
     required: true
 
+  version-from:
+    description: 'Customise where to get the version'
+    required: true
+    default: 'tag'
+
+  gpg-enabled:
+    description: 'Enable gpg signing'
+    required: false
+    default: false
+  gpg-key-id:
+    description: 'The GPG key ID'
+    required: false
+  gpg-key:
+    description: 'The GPG key'
+    required: false
+  gpg-passphrase:
+    description: 'The GPG passphrase'
+    required: false
 
 runs:
   using: 'docker'
@@ -56,3 +74,9 @@ runs:
     IMAGES_NAMES: ${{ inputs.images-names }}
 
     VERSION: ${{ inputs.version }}
+    VERSION_FROM: ${{ inputs.version-from }}
+
+    GPG_ENABLED: ${{ inputs.gpg-enabled }}
+    GPG_KEY_ID: ${{ inputs.gpg-key-id }}
+    GPG_KEY: ${{ inputs.gpg-key }}
+    GPG_PASSPHRASE: ${{ inputs.gpg-passphrase }}
