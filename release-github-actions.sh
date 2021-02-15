@@ -1,9 +1,12 @@
 #!/bin/bash
 
 if [ -z "${VERSION}" ]; then
+  echo "No version defined"
   if [[ $VERSION_FROM == "tag" ]]; then
+    echo "Use tag"
     export VERSION=${GITHUB_REF/refs\/tags\//}
   elif  [[ $VERSION_FROM == "pom" ]]; then
+    echo "Use pom"
     export VERSION=`xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' pom.xml | sed -e  "s/-SNAPSHOT$//"`
   fi
 fi
